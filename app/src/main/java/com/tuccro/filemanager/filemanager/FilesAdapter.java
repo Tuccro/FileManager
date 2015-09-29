@@ -61,7 +61,7 @@ public class FilesAdapter extends BaseAdapter {
 
             ivIcon.setImageResource(R.drawable.ic_folder);
         } else {
-            ivIcon.setImageResource(R.drawable.ic_insert_drive_file_black_18dp);
+            ivIcon.setImageResource(R.drawable.ic_file);
         }
 
         tvName.setText(file.getName());
