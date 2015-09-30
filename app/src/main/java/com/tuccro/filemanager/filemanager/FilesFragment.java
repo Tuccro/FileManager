@@ -73,7 +73,9 @@ public class FilesFragment extends Fragment {
 
         this.currentDir = dir;
 
-        FilesAdapter adapter = new FilesAdapter(sortedFilesList, getActivity());
+        boolean isRoot = dir.equals(root) ? true : false;
+
+        FilesAdapter adapter = new FilesAdapter(sortedFilesList, isRoot, getActivity());
 
         lvFiles.setAdapter(adapter);
     }

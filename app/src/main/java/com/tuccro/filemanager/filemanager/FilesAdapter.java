@@ -21,9 +21,11 @@ public class FilesAdapter extends BaseAdapter {
     ArrayList<File> files;
     Context context;
     LayoutInflater layoutInflater;
+    boolean isRoot;
 
-    public FilesAdapter(ArrayList<File> files, Context context) {
+    public FilesAdapter(ArrayList<File> files, boolean isRoot, Context context) {
         this.files = files;
+        this.isRoot = isRoot;
         this.context = context;
         layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,6 +67,11 @@ public class FilesAdapter extends BaseAdapter {
         }
 
         tvName.setText(file.getName());
+
+        if (!isRoot && position == 0) {
+            tvName.setText("");
+            ivIcon.setImageResource(R.drawable.ic_keyboard_arrow_up_black_36dp);
+        }
 
         return view;
     }
