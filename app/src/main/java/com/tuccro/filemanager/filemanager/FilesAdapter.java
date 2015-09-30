@@ -11,32 +11,32 @@ import android.widget.TextView;
 import com.tuccro.filemanager.R;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Valentin on 9/29/2015.
  */
 public class FilesAdapter extends BaseAdapter {
 
-    File[] files;
+    ArrayList<File> files;
     Context context;
     LayoutInflater layoutInflater;
 
-    public FilesAdapter(File[] files, Context context) {
+    public FilesAdapter(ArrayList<File> files, Context context) {
         this.files = files;
         this.context = context;
         layoutInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-
     @Override
     public int getCount() {
-        return files.length;
+        return files.size();
     }
 
     @Override
     public File getItem(int position) {
-        return files[position];
+        return files.get(position);
     }
 
     @Override

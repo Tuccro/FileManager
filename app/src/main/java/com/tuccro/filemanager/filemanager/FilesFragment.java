@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.tuccro.filemanager.R;
+import com.tuccro.filemanager.filemanager.utils.FilesSorter;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,12 +28,17 @@ public class FilesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    File root;
+
+    File currentDir;
+
+    Stack<File> history;
+
     ListView lvFiles;
 
     public FilesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,31 +47,51 @@ public class FilesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_files, container, false);
 
         lvFiles = (ListView) view.findViewById(R.id.lvFiles);
-        init();
 
+        root = Environment.getExternalStorageDirectory();
+        currentDir = root;
+
+        history = new Stack<>();
+        history.add(root);
+        init(currentDir);
+
+        lvFiles.setOnItemClickListener(onItemClickListener);
         return view;
     }
 
-    private void init() {
-        File file = Environment.getExternalStorageDirectory();
+    private void init(File dir) {
 
-        if (file.exists() && file.isDirectory()) {
+        File[] dirFiles = dir.listFiles();
+        FilesSorter sorter = new FilesSorter(dirFiles);
 
-            File[] dirFiles = file.listFiles();
+        ArrayList<File> sortedFilesList = sorter.getSortedListOfFiles();
 
-            Toast.makeText(getActivity(), String.valueOf(dirFiles.length), Toast.LENGTH_SHORT).show();
-
-            String[] strings = new String[dirFiles.length];
-
-            for (int k = 0; k < strings.length; k++) {
-                strings[k] = dirFiles[k].getName();
-            }
-
-            FilesAdapter adapter = new FilesAdapter(dirFiles, getActivity());
-
-            lvFiles.setAdapter(adapter);
+        if (!dir.equals(root)) {
+            File levelUp = history.peek();
+            sortedFilesList.add(0, levelUp);
         }
+
+        this.currentDir = dir;
+
+        FilesAdapter adapter = new FilesAdapter(sortedFilesList, getActivity());
+
+        lvFiles.setAdapter(adapter);
     }
+
+    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            File file = (File) parent.getAdapter().getItem(position);
+            if (file.exists() && file.isDirectory()) {
+
+                if (!file.equals(history.peek())) history.add(currentDir);
+                else history.pop();
+
+                init(file);
+            }
+        }
+    };
 
     // TODO: Rename method, update argument and hook method into UI event
 
@@ -95,7 +123,7 @@ public class FilesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
