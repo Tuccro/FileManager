@@ -16,7 +16,6 @@ import com.tuccro.filemanager.filemanager.utils.FilesSorter;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,10 +28,7 @@ public class FilesFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     File root;
-
     File currentDir;
-
-    Stack<File> history;
 
     ListView lvFiles;
 
@@ -51,8 +47,6 @@ public class FilesFragment extends Fragment {
         root = Environment.getExternalStorageDirectory();
         currentDir = root;
 
-        history = new Stack<>();
-        history.add(root);
         init(currentDir);
 
         lvFiles.setOnItemClickListener(onItemClickListener);
@@ -67,8 +61,7 @@ public class FilesFragment extends Fragment {
         ArrayList<File> sortedFilesList = sorter.getSortedListOfFiles();
 
         if (!dir.equals(root)) {
-            File levelUp = history.peek();
-            sortedFilesList.add(0, levelUp);
+            sortedFilesList.add(0, dir.getParentFile());
         }
 
         this.currentDir = dir;
@@ -86,9 +79,6 @@ public class FilesFragment extends Fragment {
 
             File file = (File) parent.getAdapter().getItem(position);
             if (file.exists() && file.isDirectory()) {
-
-                if (!file.equals(history.peek())) history.add(currentDir);
-                else history.pop();
 
                 init(file);
             }
@@ -125,7 +115,7 @@ public class FilesFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
