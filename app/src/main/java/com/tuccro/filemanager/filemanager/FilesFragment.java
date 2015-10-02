@@ -1,7 +1,6 @@
 package com.tuccro.filemanager.filemanager;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -25,6 +24,8 @@ import java.util.ArrayList;
  */
 public class FilesFragment extends Fragment {
 
+    public static final String ARG_FILE = "arg_file";
+
     private OnFragmentInteractionListener mListener;
 
     File root;
@@ -33,19 +34,24 @@ public class FilesFragment extends Fragment {
     ListView lvFiles;
 
     public FilesFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        root = Environment.getExternalStorageDirectory();
+
+        if (getArguments() != null && getArguments().containsKey(ARG_FILE)) {
+            currentDir = new File(getArguments().getString(ARG_FILE));
+        } else {
+            currentDir = root;
+        }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_files, container, false);
 
         lvFiles = (ListView) view.findViewById(R.id.lvFiles);
-
-        root = Environment.getExternalStorageDirectory();
-        currentDir = root;
 
         init(currentDir);
 
@@ -78,20 +84,13 @@ public class FilesFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             File file = (File) parent.getAdapter().getItem(position);
-            if (file.exists() && file.isDirectory()) {
+            if (file.exists()) {
 
-                init(file);
+                if (file.isDirectory()) init(file);
+                if (file.isFile() && mListener != null) mListener.onFragmentInteraction(file);
             }
         }
     };
-
-    // TODO: Rename method, update argument and hook method into UI event
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -122,7 +121,7 @@ public class FilesFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(File file);
     }
 
 }
