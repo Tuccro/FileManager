@@ -1,6 +1,7 @@
 package com.tuccro.filemanager.filemanager;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -37,6 +38,14 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_add_folder:
+                Snackbar.make(getCurrentFocus(), "Add folder", Snackbar.LENGTH_SHORT)
+                        .show();
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
