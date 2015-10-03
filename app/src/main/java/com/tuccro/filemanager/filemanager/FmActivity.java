@@ -1,12 +1,16 @@
 package com.tuccro.filemanager.filemanager;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.os.Environment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.tuccro.filemanager.R;
 
@@ -41,12 +45,45 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
 
         switch (item.getItemId()) {
             case R.id.action_add_folder:
-                Snackbar.make(getCurrentFocus(), "Add folder", Snackbar.LENGTH_SHORT)
-                        .show();
+                // TODO: 10/4/2015 get real folder path
+                AddFolderDialog dialog = new AddFolderDialog(this, Environment.getExternalStorageDirectory());
+                dialog.show();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    class AddFolderDialog extends AlertDialog {
+
+        Context context;
+
+        protected AddFolderDialog(Context context, File path) {
+            super(context);
+
+            this.context = context;
+            this.setTitle("Create new folder");
+
+            EditText etName = new EditText(context);
+
+            etName.setText("New Folder");
+            etName.selectAll();
+            this.setView(etName);
+
+            this.setButton(BUTTON_POSITIVE, "Create", onClickListener);
+            this.setButton(BUTTON_NEGATIVE, "Cancel", onClickListener);
+        }
+
+        AlertDialog.OnClickListener onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case BUTTON_POSITIVE:
+//                        Snackbar.make(getCurrentFocus(), "Add folder", Snackbar.LENGTH_SHORT)
+//                                .show();
+                        break;
+                }
+            }
+        };
+    }
 }

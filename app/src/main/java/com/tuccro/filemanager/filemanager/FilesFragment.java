@@ -28,8 +28,8 @@ public class FilesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    File root;
-    File currentDir;
+    private File root;
+    private File currentDir;
 
     ListView lvFiles;
 
