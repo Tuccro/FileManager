@@ -29,11 +29,16 @@ public class FilesFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private File root;
+
     private File currentDir;
 
     ListView lvFiles;
 
     public FilesFragment() {
+    }
+
+    public File getCurrentDir() {
+        return currentDir;
     }
 
     @Override
