@@ -9,10 +9,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/bt_select_file"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Select File" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_select_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select File" />
+
+        <TextView
+            android:id="@+id/tv_file_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_select_folder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Folder" />
+
+        <TextView
+            android:id="@+id/tv_folder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </RelativeLayout>

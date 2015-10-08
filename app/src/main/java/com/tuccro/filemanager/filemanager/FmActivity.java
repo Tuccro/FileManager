@@ -91,7 +91,7 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
 
     @Override
     public void onFragmentInteraction(File file) {
-        returnFile(file);
+        if (intentRequest == GET_FILE) returnFile(file);
     }
 
     @Override
