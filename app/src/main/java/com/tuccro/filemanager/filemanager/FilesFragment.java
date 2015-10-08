@@ -64,7 +64,7 @@ public class FilesFragment extends Fragment {
         return view;
     }
 
-    private void init(File dir) {
+    public void init(File dir) {
 
         File[] dirFiles = dir.listFiles();
         FilesSorter sorter = new FilesSorter(dirFiles);

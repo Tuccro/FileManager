@@ -110,6 +110,7 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
                             } else {
                                 if (file.mkdir()) {
                                     init();
+                                    filesFragment.init(path);
                                     dismiss();
                                 }
                             }
