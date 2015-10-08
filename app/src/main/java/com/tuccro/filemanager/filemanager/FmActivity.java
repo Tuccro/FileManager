@@ -96,9 +96,13 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.fm_activity_menu, menu);
+
+        if (intentRequest == GET_FOLDER) {
+            // Inflate the menu items for use in the action bar
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.fm_activity_menu, menu);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
