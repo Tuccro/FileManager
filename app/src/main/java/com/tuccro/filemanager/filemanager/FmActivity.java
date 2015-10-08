@@ -2,6 +2,7 @@ package com.tuccro.filemanager.filemanager;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -20,13 +21,27 @@ import java.util.ArrayList;
 
 public class FmActivity extends AppCompatActivity implements FilesFragment.OnFragmentInteractionListener {
 
+    public static final String KEY_REQUEST = "request";
+    public static String KEY_RESULT = "result";
+
+    public static final int GET_FILE = 1;
+    public static final int GET_FOLDER = 2;
+
     FragmentManager fragmentManager;
     FilesFragment filesFragment;
+
+    Button btCancel;
+    Button btOk;
+
+    // default request is file getting
+    int intentRequest = GET_FILE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fm);
+
+        intentRequest = getIntent().getIntExtra(KEY_REQUEST, GET_FILE);
 
         fragmentManager = getSupportFragmentManager();
         init();
@@ -34,14 +49,49 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
 
     public void init() {
 
+        btOk = (Button) findViewById(R.id.bt_ok);
+        btCancel = (Button) findViewById(R.id.bt_cancel);
+
+        btOk.setOnClickListener(onClickListener);
+        btCancel.setOnClickListener(onClickListener);
+
+        if (intentRequest == GET_FILE) {
+            findViewById(R.id.bt_ok).setEnabled(false);
+        }
+
         if (filesFragment == null) filesFragment = new FilesFragment();
 
         fragmentManager.beginTransaction().replace(R.id.llFiles, filesFragment).commit();
     }
 
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.bt_cancel:
+
+                    finish();
+                    break;
+                case R.id.bt_ok:
+
+                    returnFile(filesFragment.getCurrentDir());
+                    break;
+            }
+        }
+    };
+
+    private void returnFile(File file) {
+
+        String path = file.getAbsolutePath();
+        Intent intent = new Intent();
+        intent.putExtra(KEY_RESULT, path);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @Override
     public void onFragmentInteraction(File file) {
-
+        returnFile(file);
     }
 
     @Override
@@ -120,6 +170,7 @@ public class FmActivity extends AppCompatActivity implements FilesFragment.OnFra
             });
         }
 
+        // Required empty OnClickListener
         AlertDialog.OnClickListener onClickListener = new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
