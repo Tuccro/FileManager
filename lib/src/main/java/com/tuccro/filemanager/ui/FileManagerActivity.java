@@ -52,6 +52,9 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
         init();
     }
 
+    /**
+     * Finish activity if external storage not available for rw
+     */
     public void checkStorage() {
 
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -93,6 +96,11 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
         fragmentManager.beginTransaction().replace(R.id.llFiles, filesFragment).commit();
     }
 
+    /**
+     * Return result
+     *
+     * @param file selected file or folder
+     */
     private void returnFile(File file) {
 
         String path = file.getAbsolutePath();
@@ -127,6 +135,9 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
         return true;
     }
 
+    /**
+     * AlertDialog for new folder creating
+     */
     class AddFolderDialog extends AlertDialog {
 
         Context context;
