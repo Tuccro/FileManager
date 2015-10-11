@@ -6,6 +6,8 @@ import android.content.Intent;
 
 import com.tuccro.filemanager.ui.FileManagerActivity;
 
+import java.io.File;
+
 /**
  * Created by tuccro on 10/11/15.
  */
@@ -37,4 +39,11 @@ public class FileManager {
         activity.startActivityForResult(getIntent(activity), requestCode);
     }
 
+    public static String getPathFromResultIntent(Intent result) {
+        return result.getStringExtra(FileManagerActivity.KEY_RESULT);
+    }
+
+    public static File getFileFromResultIntent(Intent result) {
+        return new File(getPathFromResultIntent(result));
+    }
 }

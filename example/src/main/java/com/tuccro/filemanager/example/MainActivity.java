@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tuccro.filemanager.FileManager;
-import com.tuccro.filemanager.ui.FileManagerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,4 +53,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case FileManager.REQUEST_FILE:
+
+                    tvFilePath.setText(FileManager.getPathFromResultIntent(data));
+                    break;
+                case FileManager.REQUEST_FOLDER:
+
+                    tvFolderPath.setText(FileManager.getPathFromResultIntent(data));
+                    break;
+            }
+        }
+    }
 }
