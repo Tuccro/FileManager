@@ -29,7 +29,6 @@ public class FilesFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private File root;
-
     private File currentDir;
 
     ListView lvFiles;
@@ -126,7 +125,7 @@ public class FilesFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(File file);
+        void onFragmentInteraction(File file);
     }
 
 }

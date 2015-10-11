@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tuccro.filemanager.R;
 
@@ -42,10 +44,24 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fm);
 
+        checkStorage();
+
         intentRequest = getIntent().getIntExtra(KEY_REQUEST, GET_FILE);
 
         fragmentManager = getSupportFragmentManager();
         init();
+    }
+
+    public void checkStorage() {
+
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+            Toast.makeText(FileManagerActivity.this, R.string.sd_error, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent();
+            setResult(Activity.RESULT_CANCELED, intent);
+            finish();
+        }
     }
 
     public void init() {
@@ -106,14 +122,9 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        switch (item.getItemId()) {
-//            case R.id.action_add_folder:
         AddFolderDialog dialog = new AddFolderDialog(this, filesFragment.getCurrentDir());
         dialog.show();
         return true;
-//        }
-
-//        return super.onOptionsItemSelected(item);
     }
 
     class AddFolderDialog extends AlertDialog {
@@ -134,16 +145,16 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
                 if (file.isDirectory()) dirsInDir.add(file);
             }
 
-            this.setTitle("Create new folder");
+            this.setTitle(getString(R.string.create_folder));
 
             etName = new EditText(context);
 
-            etName.setText("New Folder");
+            etName.setText(R.string.new_folder);
             etName.selectAll();
             this.setView(etName);
 
-            this.setButton(DialogInterface.BUTTON_POSITIVE, "Create", onClickListener);
-            this.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", onClickListener);
+            this.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.create), onClickListener);
+            this.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), onClickListener);
 
             this.setOnShowListener(new OnShowListener() {
                 @Override

@@ -3,6 +3,7 @@ package com.tuccro.filemanager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 
 import com.tuccro.filemanager.ui.FileManagerActivity;
 
@@ -39,7 +40,9 @@ public class FileManager {
         activity.startActivityForResult(getIntent(activity), requestCode);
     }
 
+    @Nullable
     public static String getPathFromResultIntent(Intent result) {
+
         return result.getStringExtra(FileManagerActivity.KEY_RESULT);
     }
 
