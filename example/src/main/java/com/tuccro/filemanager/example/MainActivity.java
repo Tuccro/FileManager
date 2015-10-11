@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.tuccro.filemanager.FileManager;
 import com.tuccro.filemanager.ui.FileManagerActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,20 +42,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(MainActivity.this, FileManagerActivity.class);
-
             switch (v.getId()) {
                 case R.id.bt_get_file:
 
-                    intent.putExtra(FileManagerActivity.KEY_REQUEST, FileManagerActivity.GET_FILE);
+                    FileManager.getFile(MainActivity.this);
                     break;
                 case R.id.bt_get_folder:
 
-                    intent.putExtra(FileManagerActivity.KEY_REQUEST, FileManagerActivity.GET_FOLDER);
+                    FileManager.getFolder(MainActivity.this);
                     break;
             }
-
-            startActivityForResult(intent, 1488);
         }
     };
 }
