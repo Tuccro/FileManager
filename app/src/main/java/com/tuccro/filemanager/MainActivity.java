@@ -2,14 +2,12 @@ package com.tuccro.filemanager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.tuccro.filemanager.filemanager.FmActivity;
+import com.tuccro.filemanager.filemanager.FileManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.bt_select_file:
 
-                    intent = new Intent(MainActivity.this, FmActivity.class);
+                    intent = new Intent(MainActivity.this, FileManager.class);
                     startActivityForResult(intent, 1111);
                     break;
                 case R.id.bt_select_folder:
 
-                    intent = new Intent(MainActivity.this, FmActivity.class);
-                    intent.putExtra(FmActivity.KEY_REQUEST, FmActivity.GET_FOLDER);
+                    intent = new Intent(MainActivity.this, FileManager.class);
+                    intent.putExtra(FileManager.KEY_REQUEST, FileManager.GET_FOLDER);
                     startActivityForResult(intent, 1112);
                     break;
             }
@@ -67,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
             switch (requestCode) {
                 case REQUEST_FILE:
 
-                    result = data.getStringExtra(FmActivity.KEY_RESULT);
+                    result = data.getStringExtra(FileManager.KEY_RESULT);
                     tvFile.setText(result);
                     break;
                 case REQUEST_FOLDER:
 
-                    result = data.getStringExtra(FmActivity.KEY_RESULT);
+                    result = data.getStringExtra(FileManager.KEY_RESULT);
                     tvFolder.setText(result);
                     break;
             }

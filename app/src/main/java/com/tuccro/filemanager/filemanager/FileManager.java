@@ -19,7 +19,7 @@ import com.tuccro.filemanager.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class FmActivity extends AppCompatActivity implements FilesFragment.OnFragmentInteractionListener {
+public class FileManager extends AppCompatActivity implements FilesFragment.OnFragmentInteractionListener {
 
     public static final String KEY_REQUEST = "request";
     public static String KEY_RESULT = "result";
