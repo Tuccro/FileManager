@@ -2,7 +2,10 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.3 Beta"
+version = "1.0.3 beta"
+def siteUrl = 'https://github.com/Tuccro/FileManager'      // Homepage URL of the library
+def gitUrl = 'https://github.com/Tuccro/FileManager.git'   // Git repository URL
+group = "<maven group id>"                                 // Maven Group ID for the artifact
 
 android {
     compileSdkVersion 23
@@ -18,9 +21,23 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/Tuccro/FileManager'      // Homepage URL of the library
-def gitUrl = 'https://github.com/Tuccro/FileManager.git'   // Git repository URL
-group = "<maven group id>"                                 // Maven Group ID for the artifact
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "FileManager"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
 
 install {
     repositories.mavenInstaller {
