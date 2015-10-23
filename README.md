@@ -10,5 +10,9 @@ To your project:
             url  "http://dl.bintray.com/tuccro/maven"
         }
 
+To your AndroidManifest.xml:
+
+        <activity android:name="com.tuccro.filemanager.ui.FileManagerActivity" />
+
 
 [ ![Download](https://api.bintray.com/packages/tuccro/maven/FileManager/images/download.svg) ](https://bintray.com/tuccro/maven/FileManager/_latestVersion)
