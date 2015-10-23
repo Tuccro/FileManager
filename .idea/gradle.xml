@@ -10,7 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/example" />
-            <option value="$PROJECT_DIR$/lib" />
+            <option value="$PROJECT_DIR$/filemanager" />
           </set>
         </option>
       </GradleProjectSettings>
