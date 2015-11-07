@@ -59,14 +59,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+
+            String path;
+
             switch (requestCode) {
                 case FileManager.REQUEST_FILE:
 
-                    tvFilePath.setText(FileManager.getPathFromResultIntent(data));
+                    path = FileManager.getPathFromResultIntent(data);
                     break;
                 case FileManager.REQUEST_FOLDER:
 
-                    tvFolderPath.setText(FileManager.getPathFromResultIntent(data));
+                    path = FileManager.getPathFromResultIntent(data);
                     break;
             }
         }
