@@ -178,9 +178,7 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
 
                             File file = new File(path, etName.getText().toString());
 
-                            if (dirsInDir.contains(file)) {
-
-                            } else {
+                            if (!dirsInDir.contains(file)) {
                                 if (file.mkdir()) {
                                     init();
                                     filesFragment.init(path);

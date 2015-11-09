@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class FilesFragment extends Fragment {
 
-    public static final String ARG_FILE = "arg_file";
+    static final String ARG_FILE = "arg_file";
 
     private OnFragmentInteractionListener mListener;
 
@@ -36,7 +36,7 @@ public class FilesFragment extends Fragment {
     public FilesFragment() {
     }
 
-    public File getCurrentDir() {
+    File getCurrentDir() {
         return currentDir;
     }
 
@@ -63,7 +63,7 @@ public class FilesFragment extends Fragment {
         return view;
     }
 
-    public void init(File dir) {
+    void init(File dir) {
 
         File[] dirFiles = dir.listFiles();
         FilesSorter sorter = new FilesSorter(dirFiles);
@@ -76,7 +76,7 @@ public class FilesFragment extends Fragment {
 
         this.currentDir = dir;
 
-        boolean isRoot = dir.equals(root) ? true : false;
+        boolean isRoot = dir.equals(root);
 
         FilesAdapter adapter = new FilesAdapter(sortedFilesList, isRoot, getActivity());
 
@@ -96,6 +96,7 @@ public class FilesFragment extends Fragment {
         }
     };
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -120,7 +121,6 @@ public class FilesFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(File file);
     }
 
