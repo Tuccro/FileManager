@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FM Demo</string>
+    <string name="get_file">Get File</string>
+    <string name="get_folder">Get Folder</string>
 </resources>

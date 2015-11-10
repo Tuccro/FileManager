@@ -11,8 +11,6 @@ import java.util.Comparator;
  */
 public class FilesSorter {
 
-//    ArrayList<File> content;
-
     ArrayList<File> folders;
     ArrayList<File> files;
 

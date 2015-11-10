@@ -19,7 +19,7 @@
             android:id="@+id/bt_get_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get File" />
+            android:text="@string/get_file" />
 
         <TextView
             android:id="@+id/tv_file_path"
@@ -30,7 +30,7 @@
             android:id="@+id/bt_get_folder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get File" />
+            android:text="@string/get_folder" />
 
         <TextView
             android:id="@+id/tv_folder_path"
