@@ -2,7 +2,7 @@
 
 To your module:
 
-      compile 'com.tuccro:filemanager:1.0.5-beta'
+      compile 'com.tuccro:filemanager:1.0.7-beta'
 
 To your project:
 
