@@ -88,7 +88,7 @@ public class FileManagerActivity extends AppCompatActivity implements FilesFragm
         });
 
         if (intentRequest == GET_FILE) {
-            findViewById(R.id.bt_ok).setEnabled(false);
+            findViewById(R.id.bt_ok).setVisibility(View.GONE);
         }
 
         if (filesFragment == null) filesFragment = new FilesFragment();

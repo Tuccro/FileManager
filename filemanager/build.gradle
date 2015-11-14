@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.0.6-beta"
+version = "1.0.7-beta"
 def siteUrl = 'https://github.com/Tuccro/FileManager'      // Homepage URL of the library
 def gitUrl = 'https://github.com/Tuccro/FileManager.git'   // Git repository URL
 group = "com.tuccro"                                       // Maven Group ID for the artifact
