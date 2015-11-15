@@ -66,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 case FileManager.REQUEST_FILE:
 
                     path = FileManager.getPathFromResultIntent(data);
+                    tvFilePath.setText(path);
                     break;
                 case FileManager.REQUEST_FOLDER:
 
                     path = FileManager.getPathFromResultIntent(data);
+                    tvFolderPath.setText(path);
                     break;
             }
         }
